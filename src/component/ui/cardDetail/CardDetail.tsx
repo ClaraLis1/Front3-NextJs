@@ -7,15 +7,13 @@ interface Props{
     character:Character
 }
 
-export const Card: FC <Props> = ({character}) => {
-  const router = useRouter()
+export const CardDetail: FC <Props> = ({character}) => {  
 
-  const handleClick = ()=>{
-    router.push(`/character/${character.tail}`)
-  }
+  console.log(character);
+  
 
   return (
-    <div  onClick={handleClick} >
+    <div   >
         <h3>{character.name}</h3>
         <Image 
           src={character.image}
@@ -23,6 +21,7 @@ export const Card: FC <Props> = ({character}) => {
           width={180}
           height={250}
           priority={true} />
+        <h3>Game: {character.gameSeries}</h3>
         </div>
   )
 }

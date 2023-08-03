@@ -1,16 +1,20 @@
 import Head from 'next/head'
-import React ,{FC}from 'react'
+import {FC}from 'react'
 import Navbar from '../ui/navbar/Navbar'
 
 interface Props{
     children: React.ReactNode
+    title?: string
+    description? : string
+    keywords? : string
+
 }
 
-const Layout :FC<Props> = ({children}) => {
+export const Layout :FC<Props> = ({children, title}) => {
   return (
     <>
     <Head>
-        <title>Ecommerce App</title>
+        <title>{title}</title>
         <meta
 					name="description"
 					content="¡Encuentra tu colección de figuras Amiibo en nuestro eCommerce! Explora una amplia selección de personajes, como Mario, Zelda, Pokémon y muchos más. Conecta con tus personajes favoritos y desbloquea contenido especial en tus juegos. ¡Envío rápido y seguro garantizado!"
@@ -30,4 +34,3 @@ const Layout :FC<Props> = ({children}) => {
   )
 }
 
-export default Layout
