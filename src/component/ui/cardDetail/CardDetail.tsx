@@ -9,9 +9,6 @@ interface Props{
 
 export const CardDetail: FC <Props> = ({character}) => {  
 
-  console.log(character);
-  
-
   return (
     <div   >
         <h3>{character.name}</h3>

@@ -4,6 +4,7 @@ import { Character } from '@/interface'
 import { NextPage } from 'next'
 import {Card} from '@/component/ui/card/Card'
 import { Layout } from '@/component/layout/Layout'
+import { getCharacters } from '@/service/getCharacters'
 
 
 // const inter = Inter({ subsets: ['latin'] })
@@ -27,9 +28,7 @@ interface Props {
 }
 
 export const getStaticProps = async () => {
-  const character = await fetch('https://www.amiiboapi.com/api/amiibo')
-  const rest = await character.json();
-  const data = rest.amiibo.slice(0,20)
+  const data = await getCharacters()
      
   return {
     props:{

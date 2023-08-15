@@ -1,64 +1,48 @@
 import { Layout } from '@/component/layout/Layout';
-import {Card} from '@/component/ui/card/Card';
-import { CardDetail } from '@/component/ui/cardDetail/CardDetail';
-import Spinner from '@/component/ui/spinner/Spinner';
-import { GetStaticPaths } from 'next';
-import { useRouter } from 'next/router'
+import { Card } from '@/component/ui/card/Card';
+
 import React from 'react'
-import {useState, useEffect} from 'react'
+import { GetStaticPaths, NextPage } from 'next';
+import { getCharacter, getCharacters } from '@/service';
+import { Character } from '@/interface';
 
-const CharacterPage= () => {
-  const paramId = useRouter();
-  const [character, setCharacter] = useState()
-  console.log(paramId.query.id);
-  
+interface Props {
+  character : Character
+}
 
-  const getCharacter =async () => {
-    const character = await fetch(`https://www.amiiboapi.com/api/amiibo/?tail=${paramId.query.id}`)
-    const rest = await character.json();
-    setCharacter(rest.amiibo[0])
-  }
 
-  useEffect(() => {    
-    getCharacter()   
-  }, [])
-
-  console.log(character) 
-  
-  
+const CharacterPage: NextPage<Props>= ({character}) => {
+   
   return (
-    <Layout title='Character'>
-     {character ?
-      <CardDetail character={character}></CardDetail>:     
-      <Spinner></Spinner>}
+    <Layout title='Character'>     
+      <Card character={character}></Card>    
     </Layout>
   )
 }
 
-/*export const getStaticProps = async () => {
-  const character = await fetch(`https://www.amiiboapi.com/api/amiibo/?tail=${paramId.query.id}`)
-  const rest = await character.json();
-  const data = rest.amiibo.slice(0,20)
-     
+export const getStaticPaths: GetStaticPaths = async ({locales}) => {
+  const idiomas = locales as string[]
+  const  data = await getCharacters()
+  const paths = data.flatMap((character) => (
+    idiomas.map((idioma) => ({params:{id:character.tail},locale: idioma }))
+    ))
+  console.log(paths.length);
+  
   return {
-    props:{
-      character:data
-    }
+    paths,
+    fallback: true
   }
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticProps = async ({params}) => {
+  const id = params?.id as string
+  const character = await getCharacter(id)
+     
   return {
-    paths: [
-      {
-        params: {
-          name: 'next.js',
-        },
-      }, // See the "paths" section below
-    ],
-    fallback: true, // false or "blocking"
+    props:{
+      character:character
+    }
   }
 }
-*/
 
 export default CharacterPage
