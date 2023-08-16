@@ -5,6 +5,8 @@ import { NextPage } from 'next'
 import {Card} from '@/component/ui/card/Card'
 import { Layout } from '@/component/layout/Layout'
 import { getCharacters } from '@/service/getCharacters'
+import { CONTENT_BY_LOCALE } from '@/locale';
+import { useRouter } from 'next/router';
 
 
 // const inter = Inter({ subsets: ['latin'] })
@@ -13,6 +15,9 @@ interface Props {
 }
 
  const Home: NextPage<Props>= ({characters}) =>{
+  const { locale } = useRouter();
+  const localeContent = CONTENT_BY_LOCALE[locale as keyof typeof CONTENT_BY_LOCALE]
+	const {home} = localeContent;
 
   return (
     <Layout title='Home'>
