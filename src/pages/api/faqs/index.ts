@@ -1,4 +1,4 @@
-import { faqs } from '@/data/faqs'
+import faqs  from '@/data/faqs'
 import { Faq } from '@/interface/faq'
 import { METHODS } from 'http'
 import {NextApiRequest, NextApiResponse} from 'next'
@@ -11,6 +11,6 @@ export default function handler (req : NextApiRequest, res : NextApiResponse<Dat
         return res.status(200).json(faqs)
 
     }else{
-        return res.status(405).json({message:"no autorizado"})
+        return res.status(400).json({message:"no autorizado"})
     }
 }

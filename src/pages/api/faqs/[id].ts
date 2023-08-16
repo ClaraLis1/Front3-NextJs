@@ -1,13 +1,11 @@
-/*import { faqs } from '@/data/faqs'
-import { Faq } from '@/interface/faq'
-import { METHODS } from 'http'
+import faqs  from '@/data/faqs'
 import {NextApiRequest, NextApiResponse} from 'next'
-import { todo } from 'node:test'
 
-type Data = Faq[] | {message:string}
+
+// type Data = Faq[] | {message:string}
 // crear un util para validar el id y llamarlo desde aca
 
-export default function handler (req : NextApiRequest, res : NextApiResponse<Data>){
+export default function handler (req : NextApiRequest, res : NextApiResponse){
     const {id} = req.query
 
     if(req.method==="GET"){
@@ -21,13 +19,13 @@ export default function handler (req : NextApiRequest, res : NextApiResponse<Dat
     //    return res.status(200).json(faq)
         const {question, answer} = req.body
         if(!question || !answer) return res.status(400).json({message: `${req.body}`})
+
         faqUpdate.question = question
         faqUpdate.answer = answer
-
-        return res.status(200).json({faqUpdate})
+        return res.status(200).json(faqUpdate)
   }
 
 else{
-    return res.status(405).json({message:"no autorizado"})
+    return res.status(400).json({message:"no autorizado"})
 }
-}*/
+}

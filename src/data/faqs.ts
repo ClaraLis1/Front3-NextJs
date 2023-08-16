@@ -1,6 +1,6 @@
 import { Faq } from "@/interface/faq";
 
-export  const faqs: Faq[] =[
+const faqs: Faq[] =[
 {
     id:1,
     question:"Quien es el personaje principal?",
@@ -17,3 +17,5 @@ export  const faqs: Faq[] =[
     answer:"Mucho"
 }
 ]
+
+export default faqs;
