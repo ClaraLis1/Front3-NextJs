@@ -1,9 +1,7 @@
 import { Layout } from '@/component/layout/Layout';
 import { Card } from '@/component/ui/card/Card';
-
-import React from 'react'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { getCharacter, getCharacters } from '@/service';
+import { getCharacters } from '@/service';
 import { Character } from '@/interface';
 
 interface Props {
@@ -20,23 +18,31 @@ const CharacterPage: NextPage<Props>= ({character}) => {
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async ({locales}) => {
-  const idiomas = locales as string[]
-  const  data = await getCharacters()
-  const paths = data.flatMap((character) => (
-    idiomas.map((idioma) => ({params:{id:character.tail},locale: idioma }))
-    ))
-  console.log(paths.length);
-  
-  return {
-    paths,
-    fallback: true
-  }
+export const getStaticPaths:GetStaticPaths = async (locales) => {
+
+	const idiomas = locales.locales as string[];
+
+	const characters = await fetch("https://www.amiiboapi.com/api/amiibo/");
+	const resp = await characters.json();
+	const data = resp.amiibo.slice(0, 20);
+
+	// Obtener los paths para los personajes junto con los locales
+	const paths = data.flatMap((character: Character) =>
+    idiomas.map((locale: string) => ({ params: { id: character.tail }, locale }))
+	);
+
+	return {
+		paths,
+		fallback: false
+	}
+
 }
 
-export const getStaticProps : GetStaticProps = async ({params}) => {
-  const id = params?.id 
-  try {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+	
+	const id = params?.id;
+
+	try {
 		const res = await fetch(
 			`https://www.amiiboapi.com/api/amiibo/?tail=${id}`
 		);
@@ -56,6 +62,7 @@ export const getStaticProps : GetStaticProps = async ({params}) => {
 		}
 	}
 	
-}
+};
+
 
 export default CharacterPage
