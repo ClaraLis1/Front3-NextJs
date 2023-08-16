@@ -1,4 +1,4 @@
-import { faqs } from '@/data/faqs'
+/*import { faqs } from '@/data/faqs'
 import { Faq } from '@/interface/faq'
 import { METHODS } from 'http'
 import {NextApiRequest, NextApiResponse} from 'next'
@@ -30,4 +30,4 @@ export default function handler (req : NextApiRequest, res : NextApiResponse<Dat
 else{
     return res.status(405).json({message:"no autorizado"})
 }
-}
+}*/
