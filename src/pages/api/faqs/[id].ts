@@ -10,8 +10,10 @@ export default function handler (req : NextApiRequest, res : NextApiResponse){
 
     if(req.method==="GET"){
       const faq= faqs.find(faq => faq.id == Number(id))
+      
       if(!faq) return res.status(404).json({message: `no existe id ${id}`})
-        else  res.status(200).json(faq)
+        return  res.status(200).json(faq)
+    
     }
     if(req.method==="PUT"){
         const faqUpdate= faqs.find(faq => faq.id == Number(id))
