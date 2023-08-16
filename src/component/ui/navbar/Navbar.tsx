@@ -24,6 +24,9 @@ const Navbar = () => {
             <li>
                 <Link href="/carrito">Carrito</Link>
             </li>
+            <li>
+                <Link href="/faqs">Faqs</Link>
+            </li>
             <li className={styles.localeSwitch}>
 					<Link href={asPath} locale={locales.ES_ES}>
 						<p className={locale === locales.ES_ES ? styles.active : ""}>
