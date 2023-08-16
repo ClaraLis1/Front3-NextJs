@@ -1,5 +1,5 @@
 
-/*import { Layout } from '@/component/layout/Layout'
+import { Layout } from '@/component/layout/Layout'
 import { Faq } from '@/interface/faq'
 import { NextPage } from 'next'
 import styles from './Faqs.module.css'
@@ -22,7 +22,7 @@ const faqsPage: NextPage<Props> = ({ faqs }) => {
 }
 export const getStaticProps = async () => {
   // Modificar la url por las que nos da Vercel al hacer deploy
-  const response = await fetch('http://localhost:3000/api/faqs')
+  const response = await fetch('https://front3-next-js-2taw.vercel.app/api/faqs')
   const faqs = await response.json()
   return {
     props: {
@@ -30,9 +30,10 @@ export const getStaticProps = async () => {
     }
   }
 }
-export default faqsPage*/
+export default faqsPage
 
-import React from 'react'
+/*import React from 'react'
+//mock para subir a Vercel
 
 const FaqsPage = () => {
   return (
@@ -40,4 +41,4 @@ const FaqsPage = () => {
   )
 }
 
-export default FaqsPage
+export default FaqsPage*/
